@@ -1,137 +1,80 @@
-# 🚀 SAP Production Automation and Material Reservation
+# SAP Production Automation & Material Reservation
 
-This project automates key **SAP Production (PP)** and **Material Reservation (MM)** processes using **Python** and the **SAP GUI Scripting API**.  
-It enables hands-free execution of repetitive SAP T-Codes such as **CO11N**, **VL01N**, and **MB21**, reducing manual effort and human error.
+> **Copyright & Usage Notice**  
+> Copyright © 2026 Aditya Sarkale. All rights reserved **to the extent of rights owned by the author**.  
+> No license is granted to copy, modify, redistribute, publish, sublicense, or use this source code or substantial portions of it outside the GitHub platform without prior written permission from the applicable rights holder.  
+> **Important:** Any company-owned, client-owned, SAP-proprietary, third-party, or otherwise restricted material remains subject to its applicable ownership, confidentiality, and licensing terms.
 
----
+## Overview
+Python-based SAP GUI automation for production and material-reservation workflows, including processes involving **CO11N, MB21 and VL01N**.
 
-## 🧠 Overview
+## Capabilities
+- Production-order confirmation automation
+- Material reservation workflows
+- Excel/CSV-driven processing
+- SAP GUI navigation
+- Error handling and result logging
+- Single and multi-operation processing
 
-SAP automation is designed to:
-- Automate confirmation of production orders (CO11N)
-- Reserve materials automatically based on production requirements
-- Generate, process, and validate operations dynamically
-- Integrate with Excel/CSV files for data-driven automation
-- Allow both **manual** and **automatic** operation selection modes
-
----
-
-## ⚙️ Features
-
-✅ **Automated Production Order Confirmation (CO11N)**  
-✅ **Dynamic Material Reservation (MB21 / VL01N)**  
-✅ **Excel-based input for batch processing**  
-✅ **Error handling & logging for failed transactions**  
-✅ **Supports both single & multi-operation orders**  
-✅ **Looped processing with real-time SAP GUI interaction**  
-✅ **Modular Python design for reusability (`sap_processor.py`)**
-
----
-
-## 🧩 Project Structure
+## Architecture
 ```
-SAP-Production-Automation-and-Material-Reservation/
-│
-├── Material Reservation with CSV/
-│   ├── Book1.csv                # Example CSV for material reservation
-│   ├── ProcessOrder.py          # Main SAP automation logic for CO11N
-│   ├── app.py                   # Flask API backend server
-│   ├── connectSAP.py            # SAP GUI connection setup
-│   ├── enterOrderNumber.py      # Logic to enter production order number
-│   ├── gotoCode.py              # Function to navigate to CO11N transaction
-│   ├── orderNumber.py           # Helper functions for order management
-│   └── test.py                  # Testing and debugging scripts
-│
-└── frontend/
-    ├── public/                  # Static assets for React app
-    └── src/
-        ├── App.css              # Global styles
-        ├── App.jsx              # Root React component
-        ├── App.test.js          # Jest test file
-        ├── Batch.jsx            # Component for Material Reservation page
-        ├── PrdOrder.jsx         # Component for Production Order Confirmation page
-        ├── index.css            # Base styling
-        └── index.js             # React DOM entry point
-
+Input Excel/CSV
+      ↓
+Python / Flask
+      ↓
+SAP GUI Scripting (pywin32)
+      ↓
+SAP transactions
+      ↓
+Result / status logging
 ```
 
-## 🖥️ Tech Stack
+## Repository Structure
+- `backend/` — Python/SAP automation
+- `frontend/` — React UI
+- `Readme.md` — project documentation
 
-| Layer | Technology |
-|-------|-------------|
-| Backend | Python (Flask / FastAPI) |
-| SAP Automation | SAP GUI Scripting API |
-| Frontend | React (with Axios) |
-| Data | Excel / CSV |
-| Authentication | JWT / LocalStorage |
-| Hosting (optional) | GitHub / Localhost |
+## Prerequisites
+- Windows
+- SAP GUI for Windows
+- SAP GUI Scripting enabled
+- Python 3.10+
+- Node.js/npm for frontend
+- Appropriate SAP authorization
 
----
+## Setup
 
-## ⚡ Quick Start
-
-### 1️⃣ Prerequisites
-- Windows OS with **SAP GUI** installed  
-- **SAP Scripting** enabled (`RZ11` → `sapgui/user_scripting = TRUE`)
-- Python 3.10+  
-- Access to target SAP system
-
-### 2️⃣ Install Dependencies
-```bash
+### Backend
+Use the Python entry point and dependency files present in the relevant backend directory. Where a `requirements.txt` exists:
+```powershell
+python -m venv venv
+venv\Scripts\activate
 pip install -r requirements.txt
 ```
-### 3️⃣ Run Backend
-```bash
-python main.py
-```
 
-Server runs at → http://localhost:5050
+Start the backend using the entry point documented by the current project files.
 
-### 4️⃣ Run Frontend
-```bash
+### Frontend
+```powershell
+cd frontend
 npm install
 npm start
 ```
 
+## SAP GUI Scripting / RZ11
+If SAP is logged in but automation reports **"SAP not logged in or User cancelled the transaction"**, verify:
+- SAP GUI is running.
+- The correct session is active.
+- The required RZ11 dynamic scripting parameter is **TRUE**.
+- The transaction has not been manually cancelled.
 
-Frontend runs at → http://localhost:3000
+Server-side changes must be handled by the authorized SAP Basis team.
 
-# 🔁 Example Workflow
+## Security
+Do not commit credentials, tokens, confidential company data or production files. Use approved secret-management mechanisms.
 
-Upload Excel file containing Production Order Numbers
+## License / Rights
+This repository previously contained an open-source license notice. That notice has been removed in favor of the proprietary rights notice above. No open-source license is granted by this repository.
 
-Script logs into SAP automatically
-
-Launches CO11N transaction
-
-Iterates through operations & confirms quantities
-
-Creates Material Reservations if required (MB21)
-
-Logs results & status to Excel or console
-
-# 🧠 Key Python Functions
-
-launch_transaction(code) → Opens SAP T-code
-
-extract_operations() → Reads operations dynamically from popup
-
-confirm_operation(order, qty, shift) → Confirms operation
-
-reserve_materials(order) → Creates reservation document
-
-log_results() → Writes success/failure logs
-
-# 🔒 Security Notes
-
-Never commit your SAP credentials or tokens to GitHub.
-
-Use .env file or Windows Credential Manager for sensitive data.
-
-# 📄 License
-
-This project is licensed under the MIT License — free for personal and commercial use.
-
-### 👨‍💻 Author Aditya Sarkale
-### 💼 GitHub: @sAdityas
-### 💡 Passionate about SAP automation, integration, and AI-driven process optimization.
+## Author
+**Aditya Sarkale** — https://github.com/AdiSarkale
